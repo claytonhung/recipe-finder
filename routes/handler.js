@@ -42,29 +42,6 @@ exports.updateUser = function(req, res) {
 	});
 };
 
-var filterRecipes = function(recipes) {
-	var jsonString;
-	var count = recipes.count;
-	if (count < 1) return 0;
-	//Constructor
-	var newObj = {
-		dishes : 0,
-		dishList : []
-	};
-
-	newObj.dishes = count;
-
-	for (var i = 0; i < count; i++) {
-		var jsonData = {
-			dishName : recipes.results[i].name,
-			dishImage : recipes.results[i].image
-		};
-		newObj.dishList.push(jsonData);
-	}
-
-	return newObj;
-}
-
 exports.searchRecipe = function(req, res) {
 	console.log("welcome to search recipes");
 	var recipe = {};
@@ -74,14 +51,12 @@ exports.searchRecipe = function(req, res) {
 	switch(parseInt(recipe.anyOrAll)) {
 		case 1:
 			pearsonAPI.searchAllIngredients(recipe.ingredients, function(recipes) {
-				res.json(filterRecipes(recipes));
-				// res.json(recipes);
+				res.json(recipes);
 			});
 			break;
 		case 2:
 			pearsonAPI.searchAnyIngredients(recipe.ingredients, function(recipes) {
-				res.json(filterRecipes(recipes));
-				// res.json(recipes);
+				res.json(recipes);
 			});
 			break;
 		default:

@@ -2,13 +2,11 @@ var ingredientList = [];
 
 function populateSearch(profileData){
   var obj = profileData;
-  console.log(obj.dishList);
 
   for (var i=0; i < obj.dishes; i++) {
     var startString = " <tr class=\"dish-item\"><td class=\"dish-item-label\"> "
-    var endString = " </td><td class=\"dish-item-icon\"><div class=\"dish-item-icon-image\"></div></td></tr>"
+    var endString = " </td></tr>"
     var newSidebarListItem = startString + obj.dishList[i].dishName + endString;
-    console.log(newSidebarListItem);
     var x = $(newSidebarListItem).appendTo('.dishes-table');
   }
 }
@@ -59,10 +57,8 @@ function transitionToSearch(fbProfile) {
     if (recipeFinderUserData.dishes === 0){
       displayFirstTimeMsg();
     }
-    console.log(msg);
+    // console.log(msg);
   });
-
-  console.log("AJAX REQUEST SENT TO LOCALHOST:3000");
   // populateSearch(profileData); //this needs to be in .done callback
   fadeToSearch();
 }

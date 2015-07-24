@@ -7,20 +7,36 @@ var options = {
   path: searchPath,
   method: 'GET'
 };
-// var searchPath = '/api/search?key={' + food2fork_KEY + '}&q=';
-// var options = {
-//   host: 'food2fork.com',
-//   path: searchPath,
-//   method: 'GET'
-// };
 
 var createIngredientSearchPath = function(ingredients) {
   for (var i=0; i < ingredients.length; i++) {
     searchPath += ingredients[i].toString();
     if (i !== ingredients.length -1)
       searchPath+= '%2C%20';
-      // searchPath+= '%20';
   }
+}
+
+var filterRecipes = function(recipes) {
+  var jsonString;
+  var count = recipes.count;
+  if (count < 1) return 0;
+  //Constructor
+  var newObj = {
+    dishes : 0,
+    dishList : []
+  };
+
+  newObj.dishes = count;
+
+  for (var i = 0; i < count; i++) {
+    var jsonData = {
+      dishName : recipes.results[i].name,
+      dishImage : recipes.results[i].image
+    };
+    newObj.dishList.push(jsonData);
+  }
+
+  return newObj;
 }
 
 exports.searchAllIngredients = function(ingredients, callback) {
@@ -37,7 +53,7 @@ exports.searchAllIngredients = function(ingredients, callback) {
         // return callback(data);
       });
       res.on('end', function() {
-        callback(JSON.parse(data));
+        callback(filterRecipes(JSON.parse(data)));
       });
     } else {
       console.log("Error: " + res.statusCode + JSON.stringify(res.headers));
@@ -60,7 +76,7 @@ exports.searchAnyIngredients = function(ingredients, callback) {
         data += chunk;
       });
       res.on('end', function() {
-        callback(JSON.parse(data));
+        callback(filterRecipes(JSON.parse(data)));
       });
     } else {
       console.log("Error: " + res.statusCode + JSON.stringify(res.headers));
