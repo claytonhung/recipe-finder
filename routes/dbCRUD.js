@@ -1,4 +1,6 @@
-var mongoConnection = require('./mongoConnection');
+'use strict';
+
+const mongoConnection = require('./mongoConnection');
 
 exports.updateUser = function (user_info, callback) {
 	mongoConnection.updateUser(function(usersColl) {

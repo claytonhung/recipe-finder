@@ -1,91 +1,64 @@
 'use strict'
 
 const http = require('http');
-const food2fork_KEY = '1023f60a1e825a60b14cde2ca71bca2b';
-const searchPath = '';
-const options = {
-  host: 'api.pearson.com:',
-  port: 80,
-  path: searchPath,
-  method: 'GET'
-};
+// http://www.recipepuppy.com/about/api/
+const recipePuppy = 'http://www.recipepuppy.com/api';
+let searchPath = '';
 
+// Concat string of ingredients by comma
 var createIngredientSearchPath = function(ingredients) {
-  for (var i=0; i < ingredients.length; i++) {
+  for (let i=0; i < ingredients.length; i++) {
     searchPath += ingredients[i].toString();
     if (i !== ingredients.length -1)
-      searchPath+= '%2C%20';
+      searchPath+= ',';
   }
 }
 
+// connect to API to search for json list of recipes
+exports.searchAllIngredients = function(ingredients, callback) {
+  searchPath = '/?i=';
+  createIngredientSearchPath(ingredients);
+  let data = '';
+  const req = http.request(recipePuppy + searchPath, function(res) {
+    if (res.statusCode == 200) {
+      res.setEncoding('utf8');
+      res.on('data', function (chunk) {
+        data += chunk;
+      });
+      res.on('end', function() {
+        callback(filterRecipes(JSON.parse(data)));
+      });
+    } else {
+      console.log("Error: " + res.statusCode + JSON.stringify(res.headers));
+    }
+  });
+
+  req.end();
+};
+
 var filterRecipes = function(recipes) {
-  var jsonString;
-  var count = recipes.count;
-  if (count < 1) return 0;
+  const length = recipes.results.length;
+  if(length < 1) return 0;
+
   //Constructor
-  var newObj = {
+  let recipeObj = {
     dishes : 0,
     dishList : []
   };
 
-  newObj.dishes = count;
+  recipeObj.dishes = length;
 
-  for (var i = 0; i < count; i++) {
-    var jsonData = {
-      dishName : recipes.results[i].name,
-      dishImage : recipes.results[i].image
+  for (let i = 0; i < length; i++) {
+    const jsonData = {
+      dishName : recipes.results[i].title,
+      dishImage : recipes.results[i].tumbnail,
+      dishLink : recipes.results[i].href
     };
-    newObj.dishList.push(jsonData);
+    recipeObj.dishList.push(jsonData);
   }
 
-  return newObj;
-}
-
-exports.searchAllIngredients = function(ingredients, callback) {
-  searchPath = '/kitchen-manager/v1/recipes?ingredients-all=';
-  createIngredientSearchPath(ingredients);
-  options.path = searchPath;
-  var data = '';
-
-  var req = http.request(options, function(res) {
-    if (res.statusCode == 200) {
-      res.setEncoding('utf8');
-      res.on('data', function (chunk) {
-        data += chunk;
-        // return callback(data);
-      });
-      res.on('end', function() {
-        callback(filterRecipes(JSON.parse(data)));
-      });
-    } else {
-      console.log("Error: " + res.statusCode + JSON.stringify(res.headers));
-    }
-  });
-
-  req.end();
+  return recipeObj;
 };
 
-exports.searchAnyIngredients = function(ingredients, callback) {
-  searchPath = '/kitchen-manager/v1/recipes?ingredients-any=';
-  createIngredientSearchPath(ingredients);
-  options.path = searchPath;
-
-  var req = http.request(options, function(res) {
-    if (res.statusCode == 200) {
-      var data = '';
-      res.setEncoding('utf8');
-      res.on('data', function (chunk) {
-        data += chunk;
-      });
-      res.on('end', function() {
-        callback(filterRecipes(JSON.parse(data)));
-      });
-    } else {
-      console.log("Error: " + res.statusCode + JSON.stringify(res.headers));
-    }
-  });
-
-  req.end();
-};
 
 

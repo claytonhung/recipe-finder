@@ -112,8 +112,7 @@ function calcSidebarTableHeight(){
 
 function searchRecipes(){
   $(".search-recipe").click(function(){
-    var rButton_anyOrAll = 1;
-    var ingredientSearch = { ingredients: ingredientList, anyOrAll: rButton_anyOrAll};
+    var ingredientSearch = { ingredients: ingredientList };
     $.ajax({
       type: "POST",
       url: 'http://localhost:3000/api/v1/searchRecipes',
@@ -121,7 +120,7 @@ function searchRecipes(){
       data: ingredientSearch
     }).done(function(msg) {
       var newRecipes = msg;
-
+      console.log(newRecipes);
       // The return message from backend is 0 (check of number of dishes done in backend)
       if (newRecipes == 0) {
         swal({   title: "Error!",   text: "Sorry, there are no recipes!",   type: "error",   confirmButtonText: "Okay" });

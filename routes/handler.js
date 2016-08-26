@@ -1,17 +1,16 @@
-var db = require('./dbCRUD');
-var uuid = require('./uuidGenerator');
-var Promise = require('promise');
-var mongoConnection = require('./mongoConnection');
-var pearsonAPI = require('./recipeAPI');
+'use strict';
+
+const db = require('./dbCRUD');
+const uuid = require('./uuidGenerator');
+const Promise = require('promise');
+const mongoConnection = require('./mongoConnection');
+const recipeAPI = require('./recipeAPI');
 
 exports.updateUser = function(req, res) {
 	var user = {};
 	user._id = req.body.id; //Using fbID as the ID
-	console.log(user._id);
 	user.firstname = req.body.firstname;
-	console.log(user.firstname);
 	user.lastname = req.body.lastname;
-	console.log(user.lastname);
 
 	db.updateUser(user, function() {
 		// var dishes = {
@@ -46,25 +45,10 @@ exports.searchRecipe = function(req, res) {
 	console.log("welcome to search recipes");
 	var recipe = {};
 	recipe.ingredients = req.body.ingredients;
-	recipe.anyOrAll = req.body.anyOrAll;
 
-
-	console.log(recipe);
-	switch(parseInt(recipe.anyOrAll)) {
-		case 1:
-			pearsonAPI.searchAllIngredients(recipe.ingredients, function(recipes) {
-				res.json(recipes);
-			});
-			break;
-		case 2:
-			pearsonAPI.searchAnyIngredients(recipe.ingredients, function(recipes) {
-				res.json(recipes);
-			});
-			break;
-		default:
-			console.log("Not searching for anything");
-			break;
-	}
+	recipeAPI.searchAllIngredients(recipe.ingredients, function(recipes) {
+		res.json(recipes);
+	});
 };
 
 //Adds a dish to the DB
