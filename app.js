@@ -1,13 +1,14 @@
+'use strict'
 
-var express = require('express');
-var path = require('path');
-var bodyParser = require('body-parser');
-var handler = require('./routes/handler');
-var multer = require('multer');
-var app = express();
+const express = require('express');
+const path = require('path');
+const bodyParser = require('body-parser');
+const handler = require('./routes/handler');
+const multer = require('multer');
+const app = express();
 
 
-var allowCrossDomain = function(req, res, next) {
+const allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET, POST');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
@@ -46,10 +47,6 @@ app.get('/', function (req, res) {
 });
 
 app.post('/api/v1/user', handler.updateUser);
-//  {
-// 	var firstname = req.body;
-// 	console.log(firstname);
-// });
 
 app.post('/api/v1/searchRecipes', handler.searchRecipe);
 

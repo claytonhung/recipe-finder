@@ -48,6 +48,8 @@ exports.searchRecipe = function(req, res) {
 	recipe.ingredients = req.body.ingredients;
 	recipe.anyOrAll = req.body.anyOrAll;
 
+
+	console.log(recipe);
 	switch(parseInt(recipe.anyOrAll)) {
 		case 1:
 			pearsonAPI.searchAllIngredients(recipe.ingredients, function(recipes) {

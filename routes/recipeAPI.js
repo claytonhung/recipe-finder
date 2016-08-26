@@ -1,8 +1,10 @@
-var http = require('http');
-var food2fork_KEY = '1023f60a1e825a60b14cde2ca71bca2b';
-var searchPath = '';
-var options = {
-  host: 'api.pearson.com',
+'use strict'
+
+const http = require('http');
+const food2fork_KEY = '1023f60a1e825a60b14cde2ca71bca2b';
+const searchPath = '';
+const options = {
+  host: 'api.pearson.com:',
   port: 80,
   path: searchPath,
   method: 'GET'
