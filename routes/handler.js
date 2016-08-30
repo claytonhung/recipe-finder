@@ -18,18 +18,6 @@ exports.updateUser = function(req, res) {
 		// 	"dishList": [
 		// 	  { "id": 1,
 		// 		"dishName": "Buffalo Pulled Chicken Breast"
-		// 	},
-		// 	  { "id": 2,
-		// 		"dishName": "Barbeque Chicken"
-		// 	},
-		// 	  { "id": 3,
-		// 		"dishName": "Roasted Barbeque Chicken"
-		// 	},
-		// 	  { "id": 4,
-		// 		"dishName": "Chicken Tenders"
-		// 	},
-		// 	  { "id": 5,
-		// 		"dishName": "Chicken Steak"
 		// 	}]
 		// };
 

@@ -1,12 +1,19 @@
 var ingredientList = [];
 
+/*
+  Show the dishes on the right side of the screen
+  Want the image to show up
+  WHen mouse hovers over the image, show the name of the dish
+  When image is clicked, go to the link of the dish
+*/
 function populateSearch(profileData){
   var obj = profileData;
-
+  // obj.dishList[i].dishImage PROVIDES THE IMAGE
   for (var i=0; i < obj.dishes; i++) {
     var startString = " <tr class=\"dish-item\"><td class=\"dish-item-label\"> "
     var endString = " </td></tr>"
-    var newSidebarListItem = startString + obj.dishList[i].dishName + endString;
+    var dish = '<a href="' + obj.dishList[i].dishLink + '">' + obj.dishList[i].dishName + '</a>';
+    var newSidebarListItem = startString + dish + endString;
     var x = $(newSidebarListItem).appendTo('.dishes-table');
   }
 }
@@ -40,20 +47,9 @@ function transitionToSearch(fbProfile) {
     //   "dishList": [
     //     { "id": 1,
     //     "dishName": "Buffalo Pulled Chicken Breast"
-    //   },
-    //     { "id": 2,
-    //     "dishName": "Barbeque Chicken"
-    //   },
-    //     { "id": 3,
-    //     "dishName": "Roasted Barbeque Chicken"
-    //   },
-    //     { "id": 4,
-    //     "dishName": "Chicken Tenders"
-    //   },
-    //     { "id": 5,
-    //     "dishName": "Chicken Steak"
     //   }]
     // };
+
     if (recipeFinderUserData.dishes === 0){
       displayFirstTimeMsg();
     }
@@ -110,9 +106,18 @@ function calcSidebarTableHeight(){
   $(".sidebar-table-wrapper").css("height", height+"px");
 }
 
+/*
+  Create AJAX call searching for recipes
+  data: list of ingredients passed into ingredientSearch variable
+  returns: a list of ingredients with 3 fields (dishName, dishLink, dishImage)
+  dishName: Name of the dish
+  dishLink: link sent to the site for recipe / instructions
+  dishImage: image of the dish
+*/
 function searchRecipes(){
   $(".search-recipe").click(function(){
     var ingredientSearch = { ingredients: ingredientList };
+
     $.ajax({
       type: "POST",
       url: 'http://localhost:3000/api/v1/searchRecipes',
@@ -120,12 +125,13 @@ function searchRecipes(){
       data: ingredientSearch
     }).done(function(msg) {
       var newRecipes = msg;
-      console.log(newRecipes);
-      // The return message from backend is 0 (check of number of dishes done in backend)
+
+      // The return message from backend is 0 (number of dishes returned in backend)
       if (newRecipes == 0) {
         swal({   title: "Error!",   text: "Sorry, there are no recipes!",   type: "error",   confirmButtonText: "Okay" });
       } else {
-        $(".content").replaceWith(''); //clear "Enter your ingredients and find a recipe!"
+        $("#dishes tr").remove(); // clears the old search
+        $(".content").replaceWith(''); //clears "Enter your ingredients and find a recipe!" tag
         populateSearch(newRecipes);
       }
     });

@@ -52,9 +52,10 @@ var filterRecipes = function(recipes) {
     const jsonData = {
       dishName : recipes.results[i].title,
       dishImage : recipes.results[i].tumbnail,
-      dishLink : recipes.results[i].href
+      dishLink : recipes.results[i].href.replace('kraftfoods', 'kraftrecipes')
     };
     recipeObj.dishList.push(jsonData);
+    console.log(recipeObj);
   }
 
   return recipeObj;
