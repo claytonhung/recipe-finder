@@ -2,7 +2,7 @@
 
 // const db = require('./dbCRUD');
 const uuid = require('./uuidGenerator');
-const Promise = require('promise');
+// const Promise = require('promise');
 // const mongoConnection = require('./mongoConnection');
 const recipeAPI = require('./recipeAPI');
 
