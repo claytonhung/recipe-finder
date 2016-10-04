@@ -1,6 +1,7 @@
 'use strict';
 
 const express = require('express');
+const https = require('https');
 const path = require('path');
 const bodyParser = require('body-parser');
 const handler = require('./routes/handler');
@@ -15,6 +16,7 @@ const allowCrossDomain = function(req, res, next) {
     next();
 };
 
+https.createServer(app).listen();
 
 // var server = app.listen(3000, function () {
 

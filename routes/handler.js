@@ -9,9 +9,10 @@ const recipeAPI = require('./recipeAPI');
 exports.updateUser = function(req, res) {
 	var user = {};
 	user._id = req.body.id; //Using fbID as the ID
-	user.firstname = req.body.firstname;
-	user.lastname = req.body.lastname;
+	// user.firstname = req.body.firstname;
+	// user.lastname = req.body.lastname;
 
+console.log("USER:", user);
 	// db.updateUser(user, function() {
 	// 	// var dishes = {
 	// 	// 	"dishes": 5,

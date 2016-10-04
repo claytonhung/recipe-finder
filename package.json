@@ -3,7 +3,7 @@
   "description": "kikhackathon",
   "version": "0.0.1",
   "dependencies": {
-    "express": "3.x",
+    "express": "4.x",
     "heroku-https": "^1.0.0",
     "mongodb": "",
     "q": "^1.4.1"
