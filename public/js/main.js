@@ -124,6 +124,8 @@ function searchRecipes(){
       dataType: 'json',
       data: ingredientSearch
     }).done(function(msg) {
+
+      console.log(msg);
       var newRecipes = msg;
 
       // The return message from backend is 0 (number of dishes returned in backend)
