@@ -12,21 +12,21 @@ exports.updateUser = function(req, res) {
 	user.firstname = req.body.firstname;
 	user.lastname = req.body.lastname;
 
-	db.updateUser(user, function() {
-		// var dishes = {
-		// 	"dishes": 5,
-		// 	"dishList": [
-		// 	  { "id": 1,
-		// 		"dishName": "Buffalo Pulled Chicken Breast"
-		// 	}]
-		// };
+	// db.updateUser(user, function() {
+	// 	// var dishes = {
+	// 	// 	"dishes": 5,
+	// 	// 	"dishList": [
+	// 	// 	  { "id": 1,
+	// 	// 		"dishName": "Buffalo Pulled Chicken Breast"
+	// 	// 	}]
+	// 	// };
 
-		// db.getDishesById(user._id, function() {
-		// 	res.send("Dishes recieved!");
-		// });
-		// res.send(dishes);
-		// db.getDishes()
-	});
+	// 	// db.getDishesById(user._id, function() {
+	// 	// 	res.send("Dishes recieved!");
+	// 	// });
+	// 	// res.send(dishes);
+	// 	// db.getDishes()
+	// });
 };
 
 exports.searchRecipe = function(req, res) {
@@ -43,17 +43,17 @@ exports.searchRecipe = function(req, res) {
 exports.addDish = function(req, res) {
 	var dish = req.body.Dish;
 	console.log(dish);
-	db.createDish(dish, function() {
-		res.send("Dish added!");
-	});
+	// db.createDish(dish, function() {
+	// 	res.send("Dish added!");
+	// });
 };
 
 //Removes the dish from DB
 exports.removeDish = function(req, res) {
 	var dish = req.body.Dish;
 	console.log(dish);
-	db.removeDish(dish, function() {
-		res.send("Dish removed")
-	});
+	// db.removeDish(dish, function() {
+	// 	res.send("Dish removed")
+	// });
 };
 

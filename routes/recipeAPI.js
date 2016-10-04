@@ -1,6 +1,7 @@
 'use strict'
 
 const http = require('http');
+const enforceHttps = require('heroku-https');
 // http://www.recipepuppy.com/about/api/
 const recipePuppy = 'http://www.recipepuppy.com/api';
 let searchPath = '';
