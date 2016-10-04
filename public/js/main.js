@@ -33,7 +33,7 @@ function transitionToSearch(fbProfile) {
 
   $.ajax({
     type: "POST",
-    url: 'http://localhost:3000/api/v1/user',
+    url: '/api/v1/user',
     data: profileData
   })
   .done(function( msg ) {
@@ -120,7 +120,7 @@ function searchRecipes(){
 
     $.ajax({
       type: "POST",
-      url: 'http://localhost:3000/api/v1/searchRecipes',
+      url: '/api/v1/searchRecipes',
       dataType: 'json',
       data: ingredientSearch
     }).done(function(msg) {
