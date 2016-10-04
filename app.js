@@ -6,15 +6,11 @@ const app = module.exports = require('koa')(),
       body = require('koa-body-parser'),
       send = require('koa-send'),
       serve = require('koa-static'),
-      logger = require('koa-logger'),
-      ssl = require('koa-ssl'); // HTTPS
+      logger = require('koa-logger');
 const handler = require('./routes/handler.js');
 
 // Logger
 app.use(logger());
-
-// Enforcing SSL
-app.use(ssl());
 
 app.use(body());
 app.use(router.routes());
