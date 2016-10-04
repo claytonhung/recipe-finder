@@ -50,4 +50,4 @@ app.post('/api/v1/user', handler.updateUser);
 
 app.post('/api/v1/searchRecipes', handler.searchRecipe);
 
-app.listen(3000);
+app.listen(process.env.PORT || 3000);
