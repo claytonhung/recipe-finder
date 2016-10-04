@@ -55,7 +55,6 @@ var filterRecipes = function(recipes) {
       dishLink : recipes.results[i].href.replace('kraftfoods', 'kraftrecipes')
     };
     recipeObj.dishList.push(jsonData);
-    console.log(recipeObj);
   }
 
   return recipeObj;

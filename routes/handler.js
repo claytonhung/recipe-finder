@@ -1,9 +1,9 @@
 'use strict';
 
-const db = require('./dbCRUD');
+// const db = require('./dbCRUD');
 const uuid = require('./uuidGenerator');
 const Promise = require('promise');
-const mongoConnection = require('./mongoConnection');
+// const mongoConnection = require('./mongoConnection');
 const recipeAPI = require('./recipeAPI');
 
 exports.updateUser = function(req, res) {
