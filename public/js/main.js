@@ -12,7 +12,7 @@ function populateSearch(profileData){
   for (var i=0; i < obj.dishes; i++) {
     var startString = " <tr class=\"dish-item\"><td class=\"dish-item-label\"> "
     var endString = " </td></tr>"
-    var dish = '<a href="' + obj.dishList[i].dishLink + '">' + obj.dishList[i].dishName + '</a>';
+    var dish = '<a target="_blank" href="' + obj.dishList[i].dishLink + '">' + obj.dishList[i].dishName + '</a>';
     var newSidebarListItem = startString + dish + endString;
     var x = $(newSidebarListItem).appendTo('.dishes-table');
   }
